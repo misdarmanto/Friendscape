@@ -12,7 +12,7 @@ import { FlatList, View, Text } from "react-native";
 import { Primary } from "../../global/Colors";
 import { StyleSheet } from "react-native";
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../../lib/helper/firebase";
+import { db } from "../../lib/database/firebase";
 
 const ListChatScreen = () => {
   const [userList, setUserList] = useState([]);
@@ -25,9 +25,10 @@ const ListChatScreen = () => {
     if (currentUserData.chatId.length === 0) return;
     const result = [];
     currentUserData.chatId.forEach((chatObjRef) => {
-      const userTargetdata = shareDataCollection.filter(
-        (userTarget) => userTarget.id === chatObjRef.userChatTargetId
-      );
+      const userTargetdata = shareDataCollection.filter((userTarget) => {
+        return userTarget.id === chatObjRef.userChatTargetId;
+      });
+
       userTargetdata[0].chatRoom = chatObjRef;
       result.push(...userTargetdata);
     });
@@ -61,7 +62,9 @@ const ListChatScreen = () => {
   };
 
   useEffect(() => {
-    findUserTargetInCollection();
+    if (currentUserData.chatId.length !== 0) {
+      findUserTargetInCollection();
+    }
   }, []);
 
   useLayoutEffect(() => {

@@ -2,7 +2,7 @@ import React, { useState, useLayoutEffect, useEffect } from "react";
 import Layout from "../layouts";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
 import { useContextApi } from "../lib/hooks/useContextApi";
-import { db } from "../lib/helper/firebase";
+import { db } from "../lib/database/firebase";
 import { doc, updateDoc, onSnapshot } from "firebase/firestore";
 import InputField from "../components/Form/InputField";
 import { useNavigation } from "@react-navigation/native";
@@ -21,7 +21,7 @@ import ButtonPrimary from "../components/Buttons/ButtonPrimary";
 import HeaderLeftArrow from "../components/Header/HeaderLeftArrow";
 
 const EditProfile = () => {
-  const { currentUserData } = useContextApi();
+  const { currentUserData, dataForCurrentUserProfileScreen } = useContextApi();
   const navigation = useNavigation();
 
   const [userProfile, setUserProfile] = useState({});
@@ -95,19 +95,12 @@ const EditProfile = () => {
   }, []);
 
   useEffect(() => {
-    // get current user data from public collection
-    const collectionName =
-      currentUserData.gender === "male" ? "MaleContent" : "FemaleContent";
-    const docRef = doc(db, collectionName, currentUserData.id);
-    const unsubContentDocRef = onSnapshot(docRef, (doc) => {
-      const data = { ...doc.data() };
-      setUserProfile(data.userProfile);
-      setName(data.name);
-      setAge(data.age);
-      setDescriptions(data.description);
-      setUserImages(data.images);
-    });
-    return () => unsubContentDocRef();
+    const data = dataForCurrentUserProfileScreen;
+    setUserProfile(data.userProfile);
+    setName(data.name);
+    setAge(data.age);
+    setDescriptions(data.description);
+    setUserImages(data.images);
   }, []);
 
   return (

@@ -1,11 +1,11 @@
 import React from "react";
-import { View } from "react-native";
 import LottieView from "lottie-react-native";
-import { heightPercentage, widthPercentage } from "../../global/Dimensions"
+import { heightPercentage, widthPercentage } from "../../global/Dimensions";
+import Layout from "../../layouts";
 
 function LoadingAnimation() {
   return (
-    <View
+    <Layout
       style={{
         flex: 1,
         justifyContent: "center",
@@ -13,13 +13,13 @@ function LoadingAnimation() {
         backgroundColor: "#FFF",
       }}
     >
-     <LottieView
+      <LottieView
         style={{ width: widthPercentage(60), height: heightPercentage(25) }}
         source={require("../../assets/LottieFile/loading.json")}
         autoPlay
         loop={true}
       />
-    </View>
+    </Layout>
   );
 }
 

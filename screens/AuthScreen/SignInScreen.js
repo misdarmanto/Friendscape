@@ -10,13 +10,13 @@ import {
 } from "react-native";
 import { heightPercentage, widthPercentage } from "../../global/Dimensions";
 import { FontAwesome5, Entypo, Feather } from "@expo/vector-icons";
-import { Blue, Gray, Red } from "../../global/Colors";
+import { Blue, Gray, Primary, Red } from "../../global/Colors";
 import TextSmall from "../../components/Text/TextSmall";
 import InputField from "../../components/Form/InputField";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
-import { db } from "../../lib/helper/firebase";
+import { db } from "../../lib/database/firebase";
 import RadioButtom from "../../components/Form/RadioButtom";
 import InputNumber from "../../components/Form/InputNumber";
 import { uploadUserImages } from "../../lib/functions/firebaseStorage/uploadImage";
@@ -25,11 +25,9 @@ import ButtonPrimary from "../../components/Buttons/ButtonPrimary";
 import ButtonSecondary from "../../components/Buttons/ButtonSecondary";
 import Wrapper from "../../components/Wrapper";
 import HeaderLeftArrow from "../../components/Header/HeaderLeftArrow";
-import { useContextApi } from "../../lib/hooks/useContextApi";
 
 
 const SignInScreen = () => {
-  const { setIsAuth } = useContextApi();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -117,8 +115,8 @@ const SignInScreen = () => {
         gender: selectedGender,
         userProfile: {
           imageUri:
-            "https://firebasestorage.googleapis.com/v0/b/chatapp-cebed.appspot.com/o/userImages%2Favatar.jpeg?alt=media&token=acdad1d0-7dfc-4702-804b-8ef8998d33d8",
-          path: "userImages/avatar.jpeg",
+            "https://firebasestorage.googleapis.com/v0/b/chatapp-cebed.appspot.com/o/defaultImages%2Favatar.jpeg?alt=media&token=791ae238-6189-4d66-b299-862bcc98f3b4",
+          path: "",
         },
         notification: {
           match: 0,
@@ -142,11 +140,11 @@ const SignInScreen = () => {
           userImages.length !== 0 ? userImages : { imageUri: "", path: "" },
         userProfile: {
           imageUri:
-            "https://firebasestorage.googleapis.com/v0/b/chatapp-cebed.appspot.com/o/userImages%2Favatar.jpeg?alt=media&token=acdad1d0-7dfc-4702-804b-8ef8998d33d8",
-          path: "userImages/avatar.jpeg",
+            "https://firebasestorage.googleapis.com/v0/b/chatapp-cebed.appspot.com/o/defaultImages%2Favatar.jpeg?alt=media&token=791ae238-6189-4d66-b299-862bcc98f3b4",
+          path: "",
         },
         description: "",
-      }).then(() => setIsAuth(true));
+      })
     } catch (error) {
       console.log(error.code);
       switch (error.code) {
@@ -198,7 +196,7 @@ const SignInScreen = () => {
         <InputField
           value={email}
           onChangeText={(value) => {
-            setEmail(value.toLowerCase());
+            setEmail(value);
             setErrorEmail({});
           }}
           placeholder={"e-mail..."}
@@ -313,7 +311,7 @@ const SignInScreen = () => {
         <View style={styles.textBottom}>
           <TextSmall style={{ fontSize: 16 }}>Sudah Punya Akun?</TextSmall>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={{ fontSize: 18, fontWeight: "bold", color: Blue }}>
+            <Text style={{ fontSize: 18, fontWeight: "bold", color: Primary }}>
               Login
             </Text>
           </TouchableOpacity>
@@ -358,13 +356,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: widthPercentage(1),
     paddingVertical: heightPercentage(2),
     borderRadius: 20,
-  },
-  btnChoiceImage: {
-    paddingHorizontal: widthPercentage(5),
-    backgroundColor: Blue,
-    paddingVertical: heightPercentage(1),
-    marginHorizontal: widthPercentage(2),
-    borderRadius: 10,
   },
   imageStyles: {
     width: widthPercentage(45),

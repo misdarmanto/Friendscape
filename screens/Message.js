@@ -12,12 +12,10 @@ import {
   onSnapshot,
   updateDoc,
   doc,
-  increment,
   where,
-  limit,
   getDoc,
 } from "firebase/firestore";
-import { db } from "../lib/helper/firebase";
+import { db } from "../lib/database/firebase";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useContextApi } from "../lib/hooks/useContextApi";
@@ -32,6 +30,7 @@ import {
   storeValueToLocalStorage,
 } from "../lib/functions/asyncStorage/localStorage";
 import LoadingAnimation from "../components/animations/LoadingAnimation";
+import RewardedAdd from "../components/AdMob/RewardedAdd";
 
 export default function MessageScreen() {
   // this params need four variable
@@ -39,6 +38,7 @@ export default function MessageScreen() {
   const [messages, setMessages] = useState([]);
   const [isDataAvaliable, setIsDataAvaliable] = useState(false);
   const [countMessage, setCountMessage] = useState(0);
+  const [count, setCount] = useState(1)
 
   const navigation = useNavigation();
   const { currentUserData } = useContextApi();
@@ -49,7 +49,7 @@ export default function MessageScreen() {
       headerRight: () => (
         <ImageRounded
           size={40}
-          source={{ uri: userProfile.imageUri }}
+          source={{ uri: userProfile.imageUri || null }}
           onPress={() =>
             navigation.navigate("ImageDetail", {
               imageUri: userProfile.imageUri,
@@ -75,6 +75,13 @@ export default function MessageScreen() {
   }, []);
 
   useEffect(() => {
+    // console.log(count)
+    // if(count % 10 === 0) {
+    //   RewardedAdd()
+    //   setCount(1)
+    // }
+    // setCount(count + 1)
+
     const saveData = async () => {
       await storeValueToLocalStorage(`@date${chatRef}`, Date.now());
       await storeObjectToLocalStorage(`@message${chatRef}`, messages);

@@ -4,12 +4,12 @@ import { View } from "react-native";
 
 function BannerAd({ size, styles }) {
   const test = "ca-app-pub-3940256099942544/6300978111"; //test ad
-  const production = "";
+  const production = "ca-app-pub-8095237298596091/9381594986";
   
   return (
     <View style={[{ justifyContent: "center", alignItems: "center" }, styles]}>
       <AdMobBanner
-        adUnitID={test}
+        adUnitID={production}
         bannerSize={"banner"}
         onDidFailToReceiveAdWithError={() => console.log("error")}
       />

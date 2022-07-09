@@ -6,13 +6,11 @@ import TextTitle from "../components/Text/TextTitle";
 import { heightPercentage, widthPercentage } from "../global/Dimensions";
 import ImageRounded from "../components/Images/ImagesRounded";
 import { useContextApi } from "../lib/hooks/useContextApi";
-import ModalStyle from "../components/ModalStyle";
 import ImageWraper from "../components/Images/ImageWraper";
 import ButtonPrimary from "../components/Buttons/ButtonPrimary";
 import TextParagraph from "../components/Text/TextParagraph";
 import Wrapper from "../components/Wrapper";
 import { useAlgorithm } from "../lib/hooks/useAlgorithm";
-import { Primary } from "../global/Colors";
 import HeaderLeftArrow from "../components/Header/HeaderLeftArrow";
 
 const UserDetailProfile = () => {

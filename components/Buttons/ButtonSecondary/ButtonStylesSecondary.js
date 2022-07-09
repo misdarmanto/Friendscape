@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Blue } from "../../../global/Colors";
+import { Primary } from "../../../global/Colors";
 import { heightPercentage, widthPercentage } from "../../../global/Dimensions";
 
 export const styles = StyleSheet.create({
@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
       borderRadius: 30,
       justifyContent: "center",
       alignItems: "center",
-      backgroundColor: Blue,
+      backgroundColor: Primary,
       minWidth: widthPercentage(80),
       marginVertical: heightPercentage(1),
     },

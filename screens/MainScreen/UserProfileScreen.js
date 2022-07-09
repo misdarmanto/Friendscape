@@ -14,23 +14,28 @@ import ButtonPrimary from "../../components/Buttons/ButtonPrimary";
 import TextParagraph from "../../components/Text/TextParagraph";
 import Wrapper from "../../components/Wrapper";
 import HeaderLeftArrow from "../../components/Header/HeaderLeftArrow";
-import { clearAllDataLocalStorage } from "../../lib/functions/asyncStorage/localStorage";
-import { db } from "../../lib/helper/firebase";
+import { clearAllDataFromLocalStorage } from "../../lib/functions/asyncStorage/localStorage";
+import { db } from "../../lib/database/firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 
 const UserProfile = () => {
-  const { setIsAuth, setCurrentUserData, currentUserData } = useContextApi();
-  const [isDataAvaliable, setIsDataAvaliable] = useState(false);
+  const {
+    currentUserData,
+    setIsAuth,
+    setDataForCurrentUserProfileScreen,
+  } = useContextApi();
   const [userData, setUserData] = useState([]);
   const navigation = useNavigation();
+  const [isAvaliable, setIsAvaliable] = useState(false);
+  const imageUrl =
+    "https://firebasestorage.googleapis.com/v0/b/chatapp-cebed.appspot.com/o/userImages%2Favatar.jpeg?alt=media&token=acdad1d0-7dfc-4702-804b-8ef8998d33d8";
 
   const logOut = () => {
     const auth = getAuth();
     signOut(auth)
       .then(() => {
         setIsAuth(false);
-        setCurrentUserData({});
-        clearAllDataLocalStorage();
+        clearAllDataFromLocalStorage();
       })
       .catch((error) => console.log(error));
   };
@@ -56,18 +61,20 @@ const UserProfile = () => {
     const docRef = doc(db, collectionName, currentUserData.id);
     const unsubContentDocRef = onSnapshot(docRef, (docSnap) => {
       setUserData(docSnap.data());
-      setIsDataAvaliable(true);
+      setDataForCurrentUserProfileScreen(docSnap.data());
+      setIsAvaliable(true);
     });
     return () => unsubContentDocRef();
   }, []);
 
+  // console.log(userData.userProfile.imageUri)
   return (
     <Layout>
-      {isDataAvaliable && (
+      {isAvaliable && (
         <>
           <Wrapper wrapperStyle={{ justifyContent: "flex-start", flex: 0 }}>
             <ImageRounded
-              source={{ uri: userData.userProfile.imageUri }}
+              source={{ uri: userData.userProfile.imageUri ?? imageUrl }}
               opacity={0}
               size={70}
               onPress={() =>

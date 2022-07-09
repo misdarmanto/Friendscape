@@ -3,7 +3,7 @@ import Layout from "../../layouts";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import { heightPercentage, widthPercentage } from "../../global/Dimensions";
 import { Entypo, Feather } from "@expo/vector-icons";
-import { Gray, Blue } from "../../global/Colors";
+import { Gray, Primary } from "../../global/Colors";
 import InputField from "../../components/Form/InputField";
 import { useNavigation } from "@react-navigation/native";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -66,7 +66,7 @@ const LoginScreen = () => {
   return (
     <Layout style={styles.container}>
       <View style={styles.title}>
-        <TextTitle TextStyles={{ fontSize: 25, color: Blue }}>Login</TextTitle>
+        <TextTitle TextStyles={{ fontSize: 25, color: Primary }}>Login</TextTitle>
       </View>
 
       {/* input fields */}
@@ -110,7 +110,7 @@ const LoginScreen = () => {
       <Wrapper wrapperStyle={styles.textBottom}>
         <TextParagraph>Belum Punya Akun?</TextParagraph>
         <TouchableOpacity onPress={() => navigation.navigate("SignIn")}>
-          <TextTitle TextStyles={{ color: Blue }}>Sign In</TextTitle>
+          <TextTitle TextStyles={{ color: Primary }}>Sign In</TextTitle>
         </TouchableOpacity>
       </Wrapper>
     </Layout>

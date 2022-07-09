@@ -1,18 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
-import {
-  AntDesign,
-  EvilIcons,
-  Ionicons,
-  Feather,
-  Entypo,
-} from "@expo/vector-icons";
+import { EvilIcons, Ionicons } from "@expo/vector-icons";
 import { View } from "react-native";
-import { Primary } from "../../../global/Colors";
-import RoundedStyles from "./RoundedStyles";
 import Notification from "./Notification";
 import { useContextApi } from "../../../lib/hooks/useContextApi";
 import { TouchableOpacity } from "react-native";
-import { heightPercentage, widthPercentage } from "../../../global/Dimensions";
+import { widthPercentage } from "../../../global/Dimensions";
 
 export default HeaderRight = () => {
   const navigation = useNavigation();

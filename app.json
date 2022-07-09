@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Chat",
-    "slug": "Chat",
+    "name": "Friendscape",
+    "slug": "Friendscape",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#3360FF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,14 +21,15 @@
       "supportsTablet": true
     },
     "android": {
+      "versionCode" : 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#3360FF"
       },
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-8095237298596091~8909406982"
       },
-      "package": "com.misdar.Chat"
+      "package": "com.misdar.Friendscape"
     },
     "web": {
       "favicon": "./assets/favicon.png"
